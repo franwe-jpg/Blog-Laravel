@@ -6,10 +6,23 @@
     <title>Laravel 12 | posts</title>
 </head>
 <body>
-    <h1> aqui se mostrara el post {{ $post }} 
-    @if ($category)
+    <a href="/posts"> Volver a Posts </a>
+    <h1> Titulo: {{$post->title}} </h1>
+
+    <p>
+        <b> Categoria: {{$post->category}}</b>
+    </p>
+    <p> 
+        {{$post->content}}
+    </p>
+    <br>
+    <a href="/posts/{{$post->id}}/edit"> Editar post</a>
+
+
+    <!-- logica si se pasa el parametro category -->
+    <!-- @if ($category)
         de la categoria {{ $category}}
-    @endif
+    @endif -->
     
 </h1>
 </body>

@@ -9,23 +9,24 @@ Route::get('/', HomeController::class); // Sin pasar parametros ya que el contro
 
 Route::get('/posts', [PostController::class,'index'] ); //de esta forma la logica esta en el controlador y no ensuciamos el archivo de rutas.
 
-Route::get('/posts/create', [PostController::class,'create'] );
+Route::get('/posts/create', [PostController::class, 'create'])->name('post.create');
 
-Route::get('/posts/{post}/{category?}', [PostController::class, 'show']); //de esta forma se le indica a laravel que la variable category es opcional);  
+Route::post(('/posts'), [PostController::class, 'store']); //ruta para guardar un nuevo post, el metodo store se encarga de guardar el post en la base de datos
+
+Route::get(('/posts/{post}/edit'), [PostController::class, 'edit']);  //ruta para editar un post, el metodo edit se encarga de mostrar el formulario de edicion del post
+
+Route::put(('/posts/{post}'), [PostController::class, 'update']); //ruta para actualizar un post, el metodo update se encarga de actualizar el post en la base de datos
+
+Route::get('/posts/{post}/{category?}', [PostController::class, 'show']);
 
 
-//en laravel importan el orden de las rutas.
 
-//laravel trabaja con las sig peticiones:
-//GET: obtener datos
-//POST: guardar datos
-//PUT: actualizar datos
-//PATCH: actualizar parcialmente datos 
-//DELETE: eliminar datos 
 
+
+/*
 Route::get('/prueba', function () {
   
-     /* Crear nuevo regitro de post
+      Crear nuevo regitro de post
         $post = new Post;    
         $post->Title= 'pRUEBA dE titUlo 7';
         $post-> content = 'Pueba de contenido 7';
@@ -61,6 +62,6 @@ Route::get('/prueba', function () {
     $post = Post::find(6);
     $post ->delete(); //eliminamos el registro;
     return "objeto eliminado correctamente";
-    */
-
-});
+    
+}); 
+*/

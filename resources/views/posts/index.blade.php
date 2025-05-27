@@ -7,6 +7,7 @@
 </head>
 <body>
     <h1> Aqui se muestran todos los posts </h1>
+    <a href="/posts/create"> Crear nuevo POST</a>
     <ul>
         @foreach ($posts as $post)
             <li>
