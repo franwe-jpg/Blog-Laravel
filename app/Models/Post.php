@@ -7,7 +7,17 @@ use Illuminate\Database\Eloquent\Casts\Attribute; //importamos la clase Attribut
 
 class Post extends Model
 {
+
+    protected $fillable = [ //campos que se pueden asignar masivamente
+        'title',
+        'slug',
+        'content',
+        'category',
+        'published_at'
+    ];
+
     use HasFactory; //activa el acceso a Model::factory().
+    
     protected $table = 'posts'; //nombre en plural de la tabla definida en la migracion.
 
     protected function casts():array{ //funcion para definir los tipos de datos de los campos de la tabla
@@ -27,5 +37,10 @@ class Post extends Model
             }   
         );
     }
+
+    public function getRouteKeyName(){
+        return 'slug'; //esto permite que al buscar un post por su slug, se utilice el campo slug en lugar del id
+    }
+
 }
  

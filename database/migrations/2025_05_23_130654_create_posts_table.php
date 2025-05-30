@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
             $table->string('title');
+            $table->string('slug')->unique(); // campo slug para URL amigable
             $table->longText('content');
             $table->string('category');  
             $table->timestamps(); // crea las columnas created_at y updated_at

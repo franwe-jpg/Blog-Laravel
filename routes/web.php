@@ -3,24 +3,31 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\homeController; //importamos el controlador homeController para utilizar su metodo index en el get de: /
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\UserController; //importamos el controlador UserController para utilizarlo en la ruta de prueba
 use App\Models\Post; //importamos el modelo Post para utilizarlo en la ruta de prueba
 
 Route::get('/', HomeController::class); // Sin pasar parametros ya que el controlador solo tiene un metodo __invoke
 
-Route::get('/posts', [PostController::class,'index'] ); //de esta forma la logica esta en el controlador y no ensuciamos el archivo de rutas.
+Route::resource('post', PostController::class); //con esta linea creamos todas las rutas necesarias para el controlador PostController, es decir, las rutas de index, create, store, show, edit, update y destroy.
+    
+//Route::resource('user', UserController::class); //con esta linea creamos todas las rutas necesarias para el controlador UserController, es decir, las rutas de index, create, store, show, edit, update y destroy.
+
+/*  CREACION DE RUTAS MANUALES
+Route::get('/posts', [PostController::class,'index'] )->name('post.index'); //de esta forma la logica esta en el controlador y no ensuciamos el archivo de rutas.
 
 Route::get('/posts/create', [PostController::class, 'create'])->name('post.create');
 
-Route::post(('/posts'), [PostController::class, 'store']); //ruta para guardar un nuevo post, el metodo store se encarga de guardar el post en la base de datos
+Route::post(('/posts'), [PostController::class, 'store'])->name('post.store'); //ruta para guardar un nuevo post, el metodo store se encarga de guardar el post en la base de datos
 
-Route::get(('/posts/{post}/edit'), [PostController::class, 'edit']);  //ruta para editar un post, el metodo edit se encarga de mostrar el formulario de edicion del post
+Route::get(('/posts/{post}/edit'), [PostController::class, 'edit'])->name('post.edit');  //ruta para editar un post, el metodo edit se encarga de mostrar el formulario de edicion del post
 
-Route::put(('/posts/{post}'), [PostController::class, 'update']); //ruta para actualizar un post, el metodo update se encarga de actualizar el post en la base de datos
+Route::put(('/posts/{post}'), [PostController::class, 'update'])->name('post.update'); //ruta para actualizar un post, el metodo update se encarga de actualizar el post en la base de datos
 
-Route::get('/posts/{post}/{category?}', [PostController::class, 'show']);
+Route::delete('/posts/{post}', [PostController::class, 'destroy'])->name('post.destroy');//ruta para eliminar un post, el metodo destroy se encarga de eliminar el post de la base de datos
 
+Route::get('/posts/{post}/{category?}', [PostController::class, 'show'])->name('post.show'); //ruta para mostrar un post
 
-
+ */
 
 
 /*
