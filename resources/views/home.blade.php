@@ -7,6 +7,6 @@
         <h1 class="display-4 text-primary">Bienvenidos a la Página Innovación</h1>
         <p class="lead">Esta es la página principal de tu aplicación Laravel.</p>
         <a href="{{ route('post.index') }}" class="btn btn-outline-primary mt-4">Ver Posts</a>
-        
+        <a href="{{ route('user.index')}}" class="btn btn-outline-primary mt-4">Ver Usuarios</a>
     </div>
 @endsection

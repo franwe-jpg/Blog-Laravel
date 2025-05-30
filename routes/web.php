@@ -5,12 +5,24 @@ use App\Http\Controllers\homeController; //importamos el controlador homeControl
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController; //importamos el controlador UserController para utilizarlo en la ruta de prueba
 use App\Models\Post; //importamos el modelo Post para utilizarlo en la ruta de prueba
+use App\Models\User; //importamos el modelo User para utilizarlo en la ruta de prueba
 
 Route::get('/', HomeController::class); // Sin pasar parametros ya que el controlador solo tiene un metodo __invoke
 
 Route::resource('post', PostController::class); //con esta linea creamos todas las rutas necesarias para el controlador PostController, es decir, las rutas de index, create, store, show, edit, update y destroy.
     
-//Route::resource('user', UserController::class); //con esta linea creamos todas las rutas necesarias para el controlador UserController, es decir, las rutas de index, create, store, show, edit, update y destroy.
+Route::resource('user', UserController::class); //con esta linea creamos todas las rutas necesarias para el controlador UserController, es decir, las rutas de index, create, store, show, edit, update y destroy.
+
+Route::get('/prueba', function () {
+    
+    $user = new User;    
+    $user->name = 'mon';
+    $user->email = 'quuigoa@';
+    $user->dni = '12345678A';
+    $user->password = bcrypt('12345678'); //encriptamos la contraseña
+    $user->save();
+    return $user;
+});
 
 /*  CREACION DE RUTAS MANUALES
 Route::get('/posts', [PostController::class,'index'] )->name('post.index'); //de esta forma la logica esta en el controlador y no ensuciamos el archivo de rutas.

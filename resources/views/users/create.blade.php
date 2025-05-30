@@ -3,42 +3,52 @@
 @section('content')
     <div class="container mt-5">
 
-        <a href="{{ route('user.index') }}" class="btn btn-secondary mb-4">← Volver a Posts</a>
+        <a href="{{ route('user.index') }}" class="btn btn-secondary mb-4">← Volver a Usuarios</a>
 
-        <h1 class="mb-4 text-primary">Crear un nuevo Post</h1>
+        <h1 class="mb-4 text-primary">Crear un nuevo Usuario</h1>
 
-        <form action="{{route ('post.store')}}" method= "POST">
+        <form action="{{route ('user.store')}}" method= "POST">
             @csrf
 
             
             <div class="mb-3">
                 <label class="form-label w-100">
-                    Título:
-                    <input type="text" name="title" class="form-control mt-1" placeholder="ingrese el título" value="{{old('title')}}">
+                    Nombre y Apellido:
+                    <input type="text" name="name" class="form-control mt-1" placeholder="ingrese el nombre" value="{{old('name')}}">
                 </label>
             </div>
-            @error('title')
+            @error('name')
                 <div class="alert alert-danger">{{ $message }}</div>
             @enderror
             
             
             <div class="mb-3">
                 <label class="form-label w-100">
-                    Categoría:
-                    <input type="text" name="category" class="form-control mt-1" placeholder="Ingrese la categoría" value="{{old('category')}}">
+                    DNI:
+                    <input type="text" name="dni" class="form-control mt-1" placeholder="Ingrese el DNI" value="{{old('dni')}}">
                 </label>
             </div>
-            @error('category')
+            @error('dni')
                 <div class="alert alert-danger">{{ $message }}</div>
             @enderror
             
             <div class="mb-3">
                 <label class="form-label w-100">
-                    Contenido:
-                    <textarea name="content" class="form-control" rows="4" placeholder="Escribe el contenido..."> {{old('content')}}</textarea>
+                    Email:
+                    <input type="text" name="email" class="form-control mt-1" placeholder="Ingrese el email" value="{{old('email')}}">
                 </label>
             </div>
-            @error('content')
+            @error('email')
+                <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
+
+            <div class="mb-3">
+                <label class="form-label w-100">
+                    Contraseña:
+                    <input type="text" name="password" class="form-control mt-1" placeholder="Ingrese la contraseña" value="{{old('password')}}">
+                </label>
+            </div>
+            @error('password')
                 <div class="alert alert-danger">{{ $message }}</div>
             @enderror
 
