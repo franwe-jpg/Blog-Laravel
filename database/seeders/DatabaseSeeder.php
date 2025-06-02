@@ -4,8 +4,12 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use App\Models\Post;
+use App\Models\Phone;
+use App\Models\Comment;
+use App\Models\Tag;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+
 
 class DatabaseSeeder extends Seeder
 {
@@ -14,10 +18,20 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        Post::factory(10)->create(); // Create 10 posts using the factory
+
         $this->call([
             UserSeeder::class,
+            PostSeeder::class,
+            CommentSeeder::class,
+            TagSeeder::class,
         ]);
 
+        Phone::create([
+            'number' => '2804334640',
+            'user_id' => 1,
+        ]);
+        
+
+        
     }
 }

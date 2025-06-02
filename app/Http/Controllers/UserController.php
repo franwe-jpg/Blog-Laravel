@@ -12,7 +12,8 @@ class UserController extends Controller
     Public function index()
     {
         $users = User::orderBy('id', 'desc')
-            ->paginate(10);
+            ->with('phone')
+            ->paginate(7);
         return view('users.index', ['users' => $users]);
     }
 
@@ -27,6 +28,7 @@ class UserController extends Controller
             'email' => $request->email,
             'password' =>bcrypt('$request->password')
         ]);
+         return redirect()->route('user.index');
     }
 
     Public function show(User $user){
@@ -54,7 +56,7 @@ class UserController extends Controller
         return redirect()->route('user.index'); //redireccionamos a la ruta /posts
     } 
 
-    Public function delete(User $user){
+    Public function destroy(User $user){
         $user->delete();
         return redirect()->route('user.index');
     }

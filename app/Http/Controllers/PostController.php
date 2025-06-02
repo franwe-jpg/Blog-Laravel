@@ -6,25 +6,16 @@ use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use App\Models\Post;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
+
 
 class PostController extends Controller
 {
-    public function generateSlug($title){
-        $slug = Str::slug($title);
-        $originalSlug = $slug;
-        $count = 1;
 
-        while (Post::where('slug', $slug)->exists()) {
-            $slug = $originalSlug . '-' . $count++;
-        }
-           
-        return $slug;
-    }
 
     public function index(){
         $posts = Post::orderBy('id', 'desc')
-            ->paginate(5);
+            ->with('comments')
+            ->paginate(7);
         return view('posts.index',[
             'posts' => $posts       //pasamos los posts en un arreglo a la vista
         ]); 
@@ -38,7 +29,7 @@ class PostController extends Controller
         // StorePostRequest es una clase que extiende de FormRequest y contiene las reglas de validacion
         Post::create([
             'title' => $request->title,
-            'slug' => $this->generateSlug($request->title), //generamos el slug a partir del titulo
+            'slug' => Post::generateSlug($request->title), //generamos el slug a partir del titulo
             'content' => $request->content,
             'category' => $request->category
         ]);         
@@ -66,7 +57,7 @@ class PostController extends Controller
         //otra forma de cargar un objeto (recomendable es usar fillable)
 
         $post->title = $request->title;
-        $post->slug = $this->generateSlug($request->title); //generamos el slug a partir del titulo
+        $post->slug = Post::generateSlug($request->title); //generamos el slug a partir del titulo
         $post->content = $request->content;
         $post->category = $request->category;
         $post->save(); //guardamos los cambios

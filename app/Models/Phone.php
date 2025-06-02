@@ -6,5 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Phone extends Model
 {
-    //
+    protected $table = "phones";
+
+    protected $fillable = [
+        'number',
+        'user_id',
+    ];
+
+    
+
 }

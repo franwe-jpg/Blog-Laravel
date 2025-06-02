@@ -22,6 +22,9 @@
             </form>
         </div>
         
+        <p class="mt-3" > Telefono: {{ $user->phone->number ?? '-'}}</p>
+        
+
     </body>
 
 @endsection
