@@ -10,10 +10,11 @@ class Comment extends Model
     use hasFactory;
 
     protected $fillable = [
+        'title',
         'content',
-        'post_id',
+        
     ];
 
     protected $table = 'comments';
-
+    
 }

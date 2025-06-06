@@ -11,4 +11,8 @@ class HomeController extends Controller
     {
         return view('home'); //retorna la vista home.blade.php
     }
+    public function dashboard(){
+        return view('dashboard');
+    }
+
 }

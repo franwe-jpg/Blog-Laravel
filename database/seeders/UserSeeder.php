@@ -13,7 +13,7 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory(5)->create(); //creamos 5 usuarios mas de prueba utilizando el factory. //tambien lo podria llamar en el run de DataSeeder 
+        //User::factory(5)->create(); //creamos 5 usuarios mas de prueba utilizando el factory. //tambien lo podria llamar en el run de DataSeeder 
 
         $user = new User();
         $user->name = 'Monserratt Carmen Quiroga Salazar';

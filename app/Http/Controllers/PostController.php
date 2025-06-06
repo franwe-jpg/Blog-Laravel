@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use App\Models\Post;
+
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 
 
 class PostController extends Controller
@@ -28,6 +31,7 @@ class PostController extends Controller
     public function store(StorePostRequest $request){
         // StorePostRequest es una clase que extiende de FormRequest y contiene las reglas de validacion
         Post::create([
+            'user_id' => Auth::user()->id,
             'title' => $request->title,
             'slug' => Post::generateSlug($request->title), //generamos el slug a partir del titulo
             'content' => $request->content,

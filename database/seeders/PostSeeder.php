@@ -14,9 +14,10 @@ class PostSeeder extends Seeder
      */
     public function run(): void
     {
-        Post::factory(5)->create(); // Create 5 posts using the factory
-        Post::create([
+    //Post::factory(5)->create(); // Create 5 posts using the factory
+       Post::create([
             'title' => 'Primera TCP de Trelew',
+            'user_id' => 2,
             'slug' => 'primera-tcp-de-trelew',
             'content' => 'La joven Monserratt con ciudadania Argentina es una de las primeras TCPs que se formaron en la provincia de Chubut. Se formó en el año 2025 en el famoso Aeroclub Almirante Zar. Desde entonces, ha trabajado en diferentes proyectos y actividades para mejorar la calidad de vida de los pasajeros que viajan.',
             'category' => 'Regional',

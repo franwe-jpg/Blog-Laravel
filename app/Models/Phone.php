@@ -15,4 +15,7 @@ class Phone extends Model
 
     
 
+    public function User(){
+        return $this->belongsTo(Phone::class);
+    }
 }

@@ -14,7 +14,8 @@ class Post extends Model
         'slug',
         'content',
         'category',
-        'published_at'
+        'published_at',
+        'user_id',
     ];
 
     use HasFactory; //activa el acceso a Model::factory().
@@ -61,6 +62,10 @@ class Post extends Model
 
     public function tags(){
         return $this->belongsToMany(Tag::class);
+    }
+
+    public function user(){
+        return $this->belongsTo(User::class);
     }
 }
  

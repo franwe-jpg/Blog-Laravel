@@ -12,6 +12,8 @@
 
         <p class="mt-3">{{ $user->email }}</p>
 
+        <p class="mt-3" > Telefono: {{ $user->phone->number ?? '-'}}</p>
+
         <div class="mt-4 d-flex gap-2">
             <a href="{{ route('user.edit', $user) }}" class="btn btn-warning">Editar usuario</a>
     
@@ -22,7 +24,7 @@
             </form>
         </div>
         
-        <p class="mt-3" > Telefono: {{ $user->phone->number ?? '-'}}</p>
+        
         
 
     </body>

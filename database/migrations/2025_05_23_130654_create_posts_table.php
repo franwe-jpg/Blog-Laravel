@@ -3,6 +3,9 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use League\CommonMark\Reference\ReferenceParser;
+
+use function Pest\Laravel\delete;
 
 return new class extends Migration
 {
@@ -14,10 +17,16 @@ return new class extends Migration
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
             $table->string('title');
+            $table->unsignedBigInteger('user_id');
             $table->string('slug')->unique(); // campo slug para URL amigable
             $table->longText('content');
             $table->string('category');  
             $table->timestamps(); // crea las columnas created_at y updated_at
+
+             $table->foreign('user_id')
+                ->references('id')
+                ->on('users')
+                ->onDelete('cascade');
         });
     }
 

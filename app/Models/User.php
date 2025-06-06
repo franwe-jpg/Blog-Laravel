@@ -22,6 +22,7 @@ class User extends Authenticatable
         'dni',
         'email',
         'password',
+        
     ];
 
     /**
@@ -49,5 +50,13 @@ class User extends Authenticatable
 
     public function phone(){
         return $this->hasOne(Phone::class);
+    }
+
+    public function comment(){
+        return $this->hasMany(Comment::class);
+    }
+
+    public function post(){
+        return $this->hasMany(Post::class);
     }
 }

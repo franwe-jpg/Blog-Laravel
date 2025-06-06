@@ -34,6 +34,16 @@
             
             <div class="mb-3">
                 <label class="form-label w-100">
+                    Telefono:
+                    <input type="text" name="number" class="form-control mt-1" placeholder="Ingrese el telefono" value="{{old('number')}}">
+                </label>
+            </div>
+            @error('number')
+                <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
+
+            <div class="mb-3">
+                <label class="form-label w-100">
                     Email:
                     <input type="text" name="email" class="form-control mt-1" placeholder="Ingrese el email" value="{{old('email')}}">
                 </label>

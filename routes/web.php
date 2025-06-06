@@ -1,28 +1,39 @@
 <?php
 
+use App\Http\Controllers\CommentController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\homeController; //importamos el controlador homeController para utilizar su metodo index en el get de: /
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController; //importamos el controlador UserController para utilizarlo en la ruta de prueba
+use App\Http\Controllers\LoginController;
 use App\Models\Post; //importamos el modelo Post para utilizarlo en la ruta de prueba
-use App\Models\User; //importamos el modelo User para utilizarlo en la ruta de prueba
-use App\Models\Comment;
+use Illuminate\Auth\Events\Login;
+use Illuminate\Container\Attributes\Auth;
 
-Route::get('/', HomeController::class); // Sin pasar parametros ya que el controlador solo tiene un metodo __invoke
+Route::get('/', [HomeController::class, '__invoke']); // Sin pasar parametros ya que el controlador solo tiene un metodo __invoke
+
+Route::get('/dashboard', [homeController::class, 'dashboard' ])->middleware('auth')->name('dashboard');
 
 Route::resource('post', PostController::class); //con esta linea creamos todas las rutas necesarias para el controlador PostController, es decir, las rutas de index, create, store, show, edit, update y destroy.
     
 Route::resource('user', UserController::class); //con esta linea creamos todas las rutas necesarias para el controlador UserController, es decir, las rutas de index, create, store, show, edit, update y destroy.
+
+Route::resource('comment', CommentController::class);
+
+
+Route::get('/login', [Logincontroller::class, 'login'])->name('login');
+Route::post('/loginStore', [LoginController::class, 'loginStore'])->name('loginStore');
+Route::get('/register', [LoginController::class, 'register'])->name('register');
+Route::post('/registerStore', [LoginController::class, 'registerStore'])->name('registerStore');
+Route::get('/logout', [LoginController::class,'logout'])->name('logout');   
+
+
 
 Route::get('/prueba', function () {
         
     $post = Post::OrderBy('id','desc')
             ->first();
     $post->tags()->attach([1,2]); //asociamos los tags 1 y 2 al post.
-    $post->comments()->create([
-        'content' => 'Yo la conozco, se la pasaba comiendo oreo en clase'
-    ]); //creamos un comentario para el post
-
     return("cambios hechos");
 });
 

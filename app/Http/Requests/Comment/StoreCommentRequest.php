@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Comment;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateUserRequest extends FormRequest
+class StoreCommentRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,11 +22,8 @@ class UpdateUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|max:255',
-            'dni' => 'required|unique:users,dni,' . $this->user->id, // unique except for the current user
-            'email' => 'required|email|unique:users,email,' . $this->user->id, // unique except for the current user
-            'password' => 'required|string', 
-            'number' => 'nullable|string|max:10'
+            'title' =>'required | string',
+            'content' => 'required | string | max:256'
         ];
     }
 }

@@ -31,7 +31,18 @@
             @error('dni')
                 <div class="alert alert-danger">{{ $message }}</div>
             @enderror
-            
+
+            <div class="mb-3">
+                <label class="form-label w-100">
+                    Telefono:
+                    <input type="text" name="number" value="{{$user->phone->number ?? '' }}" class="form-control mt-1" placeholder="Ingrese el Telefono">
+                </label>
+            </div>
+            @error('number')
+                <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
+
+
             <div class="mb-3">
                 <label class="form-label w-100">
                     Email:

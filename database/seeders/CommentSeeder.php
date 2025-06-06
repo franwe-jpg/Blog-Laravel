@@ -13,13 +13,12 @@ class CommentSeeder extends Seeder
      */
     public function run(): void
     {
-        Comment::create([
-            'content' => 'Este es el comentario de prueba 1',
-            'post_id' => 1
-        ]);
-        Comment::create([
-            'content' => 'Este es el comentario de prueba 2',
-            'post_id' => 1
-        ]);
+       Comment::create([
+            'user_id' => 2,
+            'post_id' => 1,
+            'title' => "FELICITACIONES",
+            'content' => "geniaaaaaaaaaaaaaaaa",
+
+       ]);
     }
 }

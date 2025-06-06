@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
+use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use App\Models\Phone;
 
 class UserController extends Controller
 {
@@ -22,12 +24,21 @@ class UserController extends Controller
     }
 
     Public function store(StoreUserRequest $request){
-        User::create([
+        $user = User::create([   //creo un user local con los datos del request ya que luego necesito el id para el phone.
             'name' => $request->name,
             'dni' => $request->dni,
             'email' => $request->email,
-            'password' =>bcrypt('$request->password')
+            'password' =>Hash::make($request->password),
+
         ]);
+        if ($request->filled('number')){
+            Phone::create([
+                'number' => $request->number,
+                'user_id' => $user->id,
+            ]);
+        }
+        
+
          return redirect()->route('user.index');
     }
 
@@ -43,17 +54,20 @@ class UserController extends Controller
         ]); 
     }
     
-    public function update(UpdateUserRequest $request, User $user){
-        //otra forma de cargar un objeto (recomendable es usar fillable)
-
-        $user->name = $request->name;
-        $user->dni = $request->dni;
-        $user->email = $request->email;
-        $user->password = bcrypt($request->password); //encriptamos la contraseña
-        $user->save(); //guardamos los cambios en la base de datos
-
+    public function update(UpdateUserRequest $request, User $user, Phone $phone){
         
-        return redirect()->route('user.index'); //redireccionamos a la ruta /posts
+        
+
+       // Primero actualizas el usuario
+    $user->update($request->only(['name', 'dni', 'email', 'password']));
+
+    // Luego actualizas o creas el teléfono
+    $user->phone()->updateOrCreate(
+        [], // condiciones (vacías porque ya se asocia con el user_id implícitamente)
+        ['number' => $request->input('number')]
+    );
+
+    return redirect()->route('user.index');
     } 
 
     Public function destroy(User $user){

@@ -25,6 +25,7 @@ class StoreUserRequest extends FormRequest
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email|max:255',
             'password' => 'required|string', // confirmed means there should be a password_confirmation field
+            'number' => 'nullable|string|max:10',
         ];
     }
 }
