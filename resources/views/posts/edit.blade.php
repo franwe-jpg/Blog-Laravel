@@ -4,7 +4,7 @@
 
 @section ('content')
     <body class=container mt-5>
-         <a href="{{ route('post.index') }}" class="btn btn-secondary mb-3">Volver a Posts</a>
+         <a href="{{ route('post.show', $post) }}" class="btn btn-secondary mb-3">Volver al post</a>
 
          <h1 class="mb-4">Editar post</h1>
 

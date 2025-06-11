@@ -14,6 +14,20 @@
 
         <p class="mt-3" > Telefono: {{ $user->phone->number ?? '-'}}</p>
 
+        <div class="mb-3">
+            <strong> Roles: </strong>
+            <div class="mt-2">
+                <ul>
+                    @forelse($user->roles as $role)
+                        <li>{{ $role->name }}</li>  <!-- Laravel Permission usa 'name' como identificador -->
+                    @empty
+                        <li class="text-muted">No tiene roles asignados.</li>
+                    @endforelse
+                </ul>
+            </div>
+        </div>
+
+
         <div class="mt-4 d-flex gap-2">
             <a href="{{ route('user.edit', $user) }}" class="btn btn-warning">Editar usuario</a>
     

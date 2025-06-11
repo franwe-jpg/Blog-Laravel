@@ -7,25 +7,27 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController; //importamos el controlador UserController para utilizarlo en la ruta de prueba
 use App\Http\Controllers\LoginController;
 use App\Models\Post; //importamos el modelo Post para utilizarlo en la ruta de prueba
-use Illuminate\Auth\Events\Login;
-use Illuminate\Container\Attributes\Auth;
+
+
+Route::middleware('auth')->group(function(){
+    Route::get('/dashboard', [homeController::class, 'dashboard' ])->name('dashboard');
+
+    Route::resource('post', PostController::class); //con esta linea creamos todas las rutas necesarias para el controlador PostController, es decir, las rutas de index, create, store, show, edit, update y destroy.
+    
+    Route::resource('user', UserController::class); 
+
+    Route::resource('comment', CommentController::class)->except('store');
+    
+    Route::post('post/{post}/comment', [CommentController::class, 'store'])->name('comment.store');
+
+});
 
 Route::get('/', [HomeController::class, '__invoke']); // Sin pasar parametros ya que el controlador solo tiene un metodo __invoke
-
-Route::get('/dashboard', [homeController::class, 'dashboard' ])->middleware('auth')->name('dashboard');
-
-Route::resource('post', PostController::class); //con esta linea creamos todas las rutas necesarias para el controlador PostController, es decir, las rutas de index, create, store, show, edit, update y destroy.
-    
-Route::resource('user', UserController::class); //con esta linea creamos todas las rutas necesarias para el controlador UserController, es decir, las rutas de index, create, store, show, edit, update y destroy.
-
-Route::resource('comment', CommentController::class);
-
-
 Route::get('/login', [Logincontroller::class, 'login'])->name('login');
 Route::post('/loginStore', [LoginController::class, 'loginStore'])->name('loginStore');
 Route::get('/register', [LoginController::class, 'register'])->name('register');
 Route::post('/registerStore', [LoginController::class, 'registerStore'])->name('registerStore');
-Route::get('/logout', [LoginController::class,'logout'])->name('logout');   
+Route::post('/logout', [LoginController::class,'logout'])->name('logout');   
 
 
 

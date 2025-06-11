@@ -62,6 +62,23 @@
                 <div class="alert alert-danger">{{ $message }}</div>
             @enderror
 
+            <!-- Checkboxes para Roles -->
+            Roles:
+            @foreach($roles as $role)
+                <div class="form-check" >
+                    <input 
+                        type="checkbox" 
+                        name="roles[]" 
+                        value="{{ $role->name }}" 
+                        id="role_{{ $role->id }}" 
+                        class="form-check-input"
+                    >
+                    <label for="role_{{ $role->id }}" class="form-check-label">
+                        {{ $role->name }}
+                    </label>
+                </div>
+            @endforeach
+
             <button type="submit" class="btn btn-primary">Enviar</button>
 
 

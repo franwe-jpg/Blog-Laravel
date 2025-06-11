@@ -2,15 +2,29 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use App\Models\Phone;
+use Spatie\Permission\Models\Role;
+
 
 class UserController extends Controller
 {
+     public function __construct()
+    {
+      
+        $this->middleware('can:user.index')->only('index');
+        $this->middleware('can:user.create')->only('create', 'store');
+        $this->middleware('can:user.edit')->only('edit', 'update');
+        $this->middleware('can:user.show')->only('show');
+        $this->middleware('can:user.destroy')->only('destroy'); 
+    }   
+
+
     Public function index()
     {
         $users = User::orderBy('id', 'desc')
@@ -20,7 +34,10 @@ class UserController extends Controller
     }
 
     Public function create(){
-        return view('users.create');
+        $roles = Role::all();
+        return view('users.create', [
+            'roles' => $roles,
+        ]);
     }
 
     Public function store(StoreUserRequest $request){
@@ -37,7 +54,8 @@ class UserController extends Controller
                 'user_id' => $user->id,
             ]);
         }
-        
+        // Asignar roles seleccionados (sobrescribe los anteriores)
+        $user->syncRoles($request->roles ?? []); // Método específico de Laravel Permission        
 
          return redirect()->route('user.index');
     }
@@ -49,14 +67,17 @@ class UserController extends Controller
     }
 
     public function edit(User $user){
+        $roles = Role::all();
         return view('users.edit', [
-            'user' => $user  //pasamos el post a la vista
+            'user' => $user,  //pasamos el post a la vista
+            'roles' => $roles,
         ]); 
     }
     
     public function update(UpdateUserRequest $request, User $user, Phone $phone){
         
-        
+     // Asignar roles seleccionados (sobrescribe los anteriores)
+    $user->syncRoles($request->roles ?? []); // Método específico de Laravel Permission    
 
        // Primero actualizas el usuario
     $user->update($request->only(['name', 'dni', 'email', 'password']));
@@ -67,11 +88,13 @@ class UserController extends Controller
         ['number' => $request->input('number')]
     );
 
-    return redirect()->route('user.index');
+    return redirect()->route('user.index')->with('info', 'Se actualizaron los cambios exitosamente');
     } 
 
     Public function destroy(User $user){
         $user->delete();
         return redirect()->route('user.index');
     }
+
+    
 }

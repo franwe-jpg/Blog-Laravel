@@ -5,10 +5,13 @@
 @section('content' )
     <body class="container mt-5">
         
-        <a href="/" class="btn btn-secondary mb-3">Volver a Home</a>
+        <a href="dashboard" class="btn btn-secondary mb-3">Volver a los paneles</a>
         
         <h1>Todos los posts</h1>
-        <a href="{{ route('post.create') }}" class="btn btn-primary">Crear nuevo POST</a>
+        @can('post.create')
+            <a href="{{ route('post.create') }}" class="btn btn-primary">Crear nuevo POST</a>
+        @endcan
+        
 
         @foreach ($posts as $post)
         <div class="card mb-3">

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Routing\Controller;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use App\Models\Post;
@@ -14,6 +15,12 @@ use Illuminate\Support\Facades\Auth;
 class PostController extends Controller
 {
 
+    public function __construct()
+    {
+        $this->middleware('can:post.create')->only('create', 'store');
+        $this->middleware('can:post.edit')->only('edit','update');
+        $this->middleware('can:post.destroy')->only('destroy');
+    }
 
     public function index(){
         $posts = Post::orderBy('id', 'desc')

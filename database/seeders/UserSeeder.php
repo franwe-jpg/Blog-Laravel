@@ -16,17 +16,19 @@ class UserSeeder extends Seeder
         //User::factory(5)->create(); //creamos 5 usuarios mas de prueba utilizando el factory. //tambien lo podria llamar en el run de DataSeeder 
 
         $user = new User();
-        $user->name = 'Monserratt Carmen Quiroga Salazar';
-        $user->dni = '96.279.430';
-        $user->email = 'mmquirogasalazar309@gmail.com';
-        $user->password = bcrypt('12345678');   
+        $user->name = 'ramon';
+        $user->dni = '44601586';
+        $user->email = 'ramon@example.com';
+        $user->password = bcrypt('1234');   
+        $user->assignRole('Blogger');
         $user->save();
-
+        
         $user = new User();
-        $user->name = 'Franco Martin Soler';
-        $user->dni = '44601165';
-        $user->email = 'franquetcr17@gmail.com';
-        $user->password = bcrypt('12345678');   
+        $user->name = 'Franco';
+        $user->dni = '1654381';
+        $user->email = 'franco@example.com';
+        $user->password = bcrypt('1234');   
+        $user->assignRole('Admin');
         $user->save();
 
         

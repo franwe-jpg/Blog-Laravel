@@ -3,9 +3,22 @@
 @section('title', 'Home')
 
 @section('content')
+    <div>
+        <p> Sesion activa: {{Auth()->user()->name}} </p> 
+    </div>
     <div class="text-center mt-5">
         <h1 class="display-4 text-primary">Paneles</h1>
         <a href="{{ route('post.index') }}" class="btn btn-outline-primary mt-4">Ver Posts</a>
-        <a href="{{ route('user.index')}}" class="btn btn-outline-primary mt-4">Ver Usuarios</a>
+
+        @can('user.index')
+            <a href="{{ route('user.index')}}" class="btn btn-outline-primary mt-4">Ver Usuarios</a>
+        @endcan
+        
     </div>
+    <form method="POST" action="{{ route('logout') }}">
+        @csrf
+        <button type="submit" class="btn btn-danger">Cerrar sesión</button>
+    </form>
+
+    
 @endsection

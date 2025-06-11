@@ -4,9 +4,16 @@
 @section ('title', 'Usuarios')
 
 @section('content' )
+    
+    @if(session('info'))
+        <div class='alert alert=success'>
+            <strong> {{session('info')}}</strong>
+        </div>
+    @endif
+
     <body class="container mt-5">
         
-        <a href="/" class="btn btn-secondary mb-3">Volver a Home</a>
+        <a href="dashboard" class="btn btn-secondary mb-3">Volver a los paneles</a>
         
         <h1>Todos los Usuarios</h1>
         <a href="{{ route('user.create') }}" class="btn btn-primary">Crear nuevo Usuario</a>
