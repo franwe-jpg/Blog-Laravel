@@ -8,7 +8,6 @@
 
          <h1 class="mb-3">Nombre: <span class="text-primary">{{ $user->name }}</span></h1>
     
-        <p><strong>DNI:</strong> {{ $user->dni }}</p>
 
         <p class="mt-3">{{ $user->email }}</p>
 

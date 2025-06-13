@@ -75,18 +75,18 @@ class UserController extends Controller
     }
     
     public function update(UpdateUserRequest $request, User $user, Phone $phone){
-        
-     // Asignar roles seleccionados (sobrescribe los anteriores)
-    $user->syncRoles($request->roles ?? []); // Método específico de Laravel Permission    
+            
+        // Asignar roles seleccionados (sobrescribe los anteriores)
+        $user->syncRoles($request->roles ?? []); // Método específico de Laravel Permission    
 
-       // Primero actualizas el usuario
-    $user->update($request->only(['name', 'dni', 'email', 'password']));
+        // Primero actualizas el usuario
+        $user->update($request->only(['name','email', 'password']));
 
-    // Luego actualizas o creas el teléfono
-    $user->phone()->updateOrCreate(
-        [], // condiciones (vacías porque ya se asocia con el user_id implícitamente)
-        ['number' => $request->input('number')]
-    );
+        // Luego actualizas o creas el teléfono
+        $user->phone()->updateOrCreate(
+            [], // condiciones (vacías porque ya se asocia con el user_id implícitamente)
+            ['number' => $request->input('number')]
+        );
 
     return redirect()->route('user.index')->with('info', 'Se actualizaron los cambios exitosamente');
     } 
@@ -97,4 +97,6 @@ class UserController extends Controller
     }
 
     
+    
+
 }

@@ -11,8 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('posts', function (Blueprint $table) {
-            $table->timestamp('published_at')->nullable()->after('category');// columna opcional para la fecha de publicacion, puede ser nula       
+        Schema::table('users', function (Blueprint $table) {
+            $table->text('bio')->nullable()->after('email');
+            $table->string('instagram')->nullable()->after('bio');
+            
         });
     }
 
@@ -21,8 +23,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('posts', function (Blueprint $table) {
-            $table->dropColumn('published_at'); // eliminamos la columna si se revierte la migracion
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn(['bio','instagram']);
         });
     }
 };

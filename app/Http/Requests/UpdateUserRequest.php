@@ -23,10 +23,12 @@ class UpdateUserRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
-            'dni' => 'required|unique:users,dni,' . $this->user->id, // unique except for the current user
-            'email' => 'required|email|unique:users,email,' . $this->user->id, // unique except for the current user
+            'email' => 'required|email|unique:users,email,' . $this->id, // unique except for the current user
             'password' => 'required|string', 
-            'number' => 'nullable|string|max:10'
+            'number' => 'nullable|string|max:10',
+            'avatar' => 'nullable',
+            'bio' => 'nullable|string|max:255',
+            'instagram' =>'nullable',
         ];
     }
 }

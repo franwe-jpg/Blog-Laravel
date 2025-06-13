@@ -17,7 +17,6 @@ class UserSeeder extends Seeder
 
         $user = new User();
         $user->name = 'ramon';
-        $user->dni = '44601586';
         $user->email = 'ramon@example.com';
         $user->password = bcrypt('1234');   
         $user->assignRole('Blogger');
@@ -25,7 +24,6 @@ class UserSeeder extends Seeder
         
         $user = new User();
         $user->name = 'Franco';
-        $user->dni = '1654381';
         $user->email = 'franco@example.com';
         $user->password = bcrypt('1234');   
         $user->assignRole('Admin');

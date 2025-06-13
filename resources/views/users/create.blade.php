@@ -24,16 +24,6 @@
             
             <div class="mb-3">
                 <label class="form-label w-100">
-                    DNI:
-                    <input type="text" name="dni" class="form-control mt-1" placeholder="Ingrese el DNI" value="{{old('dni')}}">
-                </label>
-            </div>
-            @error('dni')
-                <div class="alert alert-danger">{{ $message }}</div>
-            @enderror
-            
-            <div class="mb-3">
-                <label class="form-label w-100">
                     Telefono:
                     <input type="text" name="number" class="form-control mt-1" placeholder="Ingrese el telefono" value="{{old('number')}}">
                 </label>

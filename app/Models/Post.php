@@ -13,7 +13,7 @@ class Post extends Model
         'title',
         'slug',
         'content',
-        'category',
+        'category_id',
         'published_at',
         'user_id',
     ];
@@ -66,6 +66,10 @@ class Post extends Model
 
     public function user(){
         return $this->belongsTo(User::class);
+    }
+
+    public function category(){
+        return $this->belongsTo(Category::class);
     }
 }
  

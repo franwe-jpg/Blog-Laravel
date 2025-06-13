@@ -6,6 +6,8 @@ use App\Http\Controllers\homeController; //importamos el controlador homeControl
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController; //importamos el controlador UserController para utilizarlo en la ruta de prueba
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\ProfileController;
+
 use App\Models\Post; //importamos el modelo Post para utilizarlo en la ruta de prueba
 
 
@@ -15,11 +17,16 @@ Route::middleware('auth')->group(function(){
     Route::resource('post', PostController::class); //con esta linea creamos todas las rutas necesarias para el controlador PostController, es decir, las rutas de index, create, store, show, edit, update y destroy.
     
     Route::resource('user', UserController::class); 
+    
+    Route::resource('profile',ProfileController::class)->except('index','create', 'store');
 
-    Route::resource('comment', CommentController::class)->except('store');
+    Route::resource('comment', CommentController::class)->only('update','destroy');
     
     Route::post('post/{post}/comment', [CommentController::class, 'store'])->name('comment.store');
 
+    Route::get('misPosts', [PostController::class, 'misPostsIndex'])->name('misPosts');
+
+   
 });
 
 Route::get('/', [HomeController::class, '__invoke']); // Sin pasar parametros ya que el controlador solo tiene un metodo __invoke

@@ -18,14 +18,19 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('category_id');
             $table->string('slug')->unique(); // campo slug para URL amigable
-            $table->longText('content');
-            $table->string('category');  
+            $table->longText('content'); 
             $table->timestamps(); // crea las columnas created_at y updated_at
 
              $table->foreign('user_id')
                 ->references('id')
                 ->on('users')
+                ->onDelete('cascade');
+
+            $table->foreign('category_id')
+                ->references('id')
+                ->on('categories')
                 ->onDelete('cascade');
         });
     }

@@ -22,8 +22,7 @@ class StorePostRequest extends FormRequest
     public function rules(): array
     {
         return [
-           'title' => 'required|min:5|max:255', //validamos que el titulo sea requerido y no supere los 255 caracteres
-            'category' => 'required|max:50',
+            'title' => 'required|string|min:5|max:50', //validamos que el titulo sea requerido y no supere los 255 caracteres
             'content' => 'required',    
         ];
     }

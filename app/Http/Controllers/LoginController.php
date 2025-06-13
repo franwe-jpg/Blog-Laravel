@@ -19,11 +19,8 @@ class LoginController extends Controller
             'dni' => $request->dni,
             'email' => $request->email,
             'password' =>Hash::make($request->password),
-
         ]);
         Auth::login($user);
-        
-
         return redirect()->route('dashboard'); 
     }
 
@@ -35,19 +32,15 @@ class LoginController extends Controller
         $credentials = [
             "email" => $request->email,
             "password" => $request->password,
-
         ];
-
-        
         if (Auth::attempt($credentials)){
             $request->session()->regenerate();
             return redirect()->route('dashboard'); 
         }else{
             return redirect()->route('login'); 
         }
-
-        
     }
+
     public function logout(Request $request){
         Auth::logout();
         $request->session()->invalidate(); // Invalida los datos de sesión

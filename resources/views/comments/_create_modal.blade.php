@@ -24,7 +24,7 @@
 
                         <div class="mb-3">
                             <label class="form-label">Contenido:</label>
-                            <textarea name="content" class="form-control" rows="4"> Escriba aqui el contenido...</textarea>
+                            <textarea name="content" class="form-control" rows="4"> </textarea>
                         </div>
 
 

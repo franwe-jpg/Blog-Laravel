@@ -6,6 +6,7 @@ use Illuminate\Routing\Controller;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use App\Models\Post;
+use App\Models\Category;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -32,7 +33,9 @@ class PostController extends Controller
     }
 
     public function create(){
-        return view('posts.create');
+        $categories = Category::all();
+        return view('posts.create',[
+            'categories' => $categories]);
     }
 
     public function store(StorePostRequest $request){
@@ -42,7 +45,7 @@ class PostController extends Controller
             'title' => $request->title,
             'slug' => Post::generateSlug($request->title), //generamos el slug a partir del titulo
             'content' => $request->content,
-            'category' => $request->category
+            'category_id' => $request->category
         ]);         
 
         return redirect()->route('post.index'); //redireccionamos a la ruta /posts   
@@ -54,13 +57,15 @@ class PostController extends Controller
   
         return view('posts.show', [    //retornamos la vista posts.show y le pasamos los datos del post y la categoria
             'post' => $post,
-            'category' => $category
+
         ]); 
     }
     
     public function edit(Post $post){
+        $categories = Category::all();
         return view('posts.edit', [
-            'post' => $post  //pasamos el post a la vista
+            'post' => $post,
+            'categories' => $categories,  //pasamos el post a la vista
         ]); 
     }
     
@@ -70,7 +75,7 @@ class PostController extends Controller
         $post->title = $request->title;
         $post->slug = Post::generateSlug($request->title); //generamos el slug a partir del titulo
         $post->content = $request->content;
-        $post->category = $request->category;
+        $post->category_id = $request->category;
         $post->save(); //guardamos los cambios
         return redirect()->route('post.index'); //redireccionamos a la ruta /posts
     } 
@@ -81,4 +86,13 @@ class PostController extends Controller
 
     }
 
+
+    public function misPostsIndex(){
+        $posts = Post::where('user_id', Auth::user()->id)
+            ->orderBy('id','desc')
+            ->paginate(10);
+        return view('posts.index', [
+            'posts' => $posts,
+        ]);
+    }
 }

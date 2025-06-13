@@ -26,10 +26,6 @@ class CommentController extends Controller
         return redirect()->back();
     }
 
-    public function show(Comment $comment)
-    {
-        //
-    }
 
     public function update(UpdateCommentRequest $request, Comment $comment)
     {

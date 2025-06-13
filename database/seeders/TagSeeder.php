@@ -14,13 +14,13 @@ class TagSeeder extends Seeder
     public function run(): void
     {
         Tag::create([
-            'name' => 'Aviacion'
+            'name' => 'Aeroclub'
         ]);
         Tag::create([
-            'name' => 'Primicia'
+            'name' => 'UNPSJB'
         ]);
         Tag::create([
-            'name' => 'Programacion'
+            'name' => 'Laravel'
         ]);
     }
 }

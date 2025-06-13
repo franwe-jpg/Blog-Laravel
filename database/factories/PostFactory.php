@@ -24,8 +24,7 @@ class PostFactory extends Factory
             'user_id' => User::inRandomOrder()->first()->id,  // <-- Asigna un user_id existente aleatorio
             'slug' => Post::generateSlug($title),
             'content' => $this->faker->text(1000),
-            'category' => $this->faker->word(),
-            'published_at' => $this->faker->dateTime(),
+            
         ];
     }
 }

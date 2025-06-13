@@ -28,10 +28,14 @@
             <div class="mb-3">
                 <label class="form-label w-100">
                     Categoría:
-                    <input type="text" name="category" class="form-control mt-1" placeholder="Ingrese la categoría" value="{{old('category')}}">
+                    <select name="category" class="form-control mt-1"> 
+                        @foreach ($categories as $category)
+                            <option value="{{$category->id}}">{{$category->name}}</option>
+                        @endforeach
+                    </select>
                 </label>
             </div>
-            @error('category')
+            @error('category->id')
                 <div class="alert alert-danger">{{ $message }}</div>
             @enderror
             

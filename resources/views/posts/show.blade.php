@@ -14,8 +14,11 @@
         <div class="card-body">
             <h2 class="card-title mb-3">Título: <span class="text-primary">{{ $post->title }}</span></h2>
 
-            <p class="mb-1"><strong>Categoría:</strong> {{ $post->category }}</p>
-            <p class="mb-1"> <strong>Autor:</strong> {{$post->user->name}}</p>
+            <p class="mb-1"><strong>Categoría:</strong> {{ $post->category->name }}</p>
+            <p>
+                Autor: <a href="{{route('profile.show', $post->user) }}"> {{$post->user->name}}</a>
+            </p>    
+            
             <p class="mt-3">{{ $post->content }}</p>
 
             @if($post->tags->count())
@@ -30,18 +33,20 @@
             @endif
 
             <div class="mt-4 d-flex gap-3">
-                @can ('post.edit')
-                    <a href="{{ route('post.edit', $post) }}" class="btn btn-warning">Editar</a>
-                @endcan
                 
-                @can ('post.destroy')
+                @if (auth()->id() === $post->user_id || auth()->user()->hasRole('Admin'))
+                    <a href="{{ route('post.edit', $post) }}" class="btn btn-warning">Editar</a>
+                @endif
+                
+                @if (auth()->id() === $post->user_id || auth()->user()->hasRole('Admin'))
                     <form action="{{ route('post.destroy', $post) }}" method="POST"
                         onsubmit="return confirm('¿Estás seguro de que deseas eliminar este post?')">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger">Eliminar</button>
                     </form>
-                @endcan
+                @endif
+
             </div>
         </div>
     </div>
@@ -57,22 +62,25 @@
                     {{ $comment->content }}
                 <br>
 
-                <button type="button" class="btn btn-primary mt-4" data-bs-toggle="modal" data-bs-target="#editCommentModal">
-                    Editar
-                </button>
+                @can('comment.edit')
 
-                <form action="{{ route('comment.destroy', $comment) }}" method="POST"
-                      onsubmit="return confirm('¿Estás seguro de que deseas eliminar este comentario?')">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-danger">Eliminar</button>
-                </form>
+                    <button type="button" class="btn btn-primary mt-4" data-bs-toggle="modal" data-bs-target="#editCommentModal">
+                        Editar
+                    </button>
+
+                @endcan
+
+                @can('comment.destroy')
+                    <form action="{{ route('comment.destroy', $comment) }}" method="POST"
+                        onsubmit="return confirm('¿Estás seguro de que deseas eliminar este comentario?')">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                    </form>
+                @endcan
             </div>
             
-  
-        
-                
- 
+
         @empty
             <p class="text-muted">No hay comentarios.</p>
         @endforelse
@@ -84,7 +92,10 @@
          
     </button>
 
-    @include ('comments._edit_modal')
+    @isset($comment)
+        @include('comments._edit_modal')
+    @endisset
+    
     @include ('comments._create_modal') 
     
 </div>
