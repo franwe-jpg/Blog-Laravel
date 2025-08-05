@@ -18,7 +18,7 @@
         <a href="{{ route('profile.show', Auth::User()) }}" class="btn btn-outline-primary mt-4">Ver mi perfil</a>
 
     </div>
-    <form method="POST" action="{{ route('logout') }}">
+    <form method="POST" action="{{ route('logout.local') }}">
         @csrf
         <button type="submit" class="btn btn-danger">Cerrar sesión</button>
     </form>

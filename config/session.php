@@ -18,7 +18,8 @@ return [
     |
     */
 
-    'driver' => env('SESSION_DRIVER', 'database'),
+
+    'guard' => env('SESSION_GUARD', 'web'), //nuevaaa para q funcione el auth0
 
     /*
     |--------------------------------------------------------------------------

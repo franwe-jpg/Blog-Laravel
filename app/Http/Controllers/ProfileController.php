@@ -27,10 +27,20 @@ class ProfileController extends Controller
 
  
     public function update(UpdateUserRequest $request, User $profile)
-    {
-         $profile->update($request->all());
+{
+    // Actualizamos los campos normales excepto el archivo
+    $profile->update($request->except('avatar'));
 
-         return redirect()->route('profile.show', $profile);
+    if ($request->hasFile('avatar')) {
+        // Guarda la imagen en public/avatars
+        $file = $request->file('avatar');
+        $path = $file->store('avatars', 'public'); // guarda en storage/app/public/avatars
+
+        // Actualiza el campo avatar con la ruta relativa
+        $profile->avatar = $path;
+        $profile->save();
+    }
+        return redirect()->route('profile.show', $profile);
     }
 
   

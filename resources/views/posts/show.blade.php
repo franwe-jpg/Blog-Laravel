@@ -57,27 +57,28 @@
             <div class="mb-2 p-3 border rounded bg-light">
                 De: {{ $comment->user->name }}
                 <br>
-                {{ $comment->title }}
+                {{ $comment->title }}   
                 <br>
                     {{ $comment->content }}
                 <br>
 
-                @can('comment.edit')
 
-                    <button type="button" class="btn btn-primary mt-4" data-bs-toggle="modal" data-bs-target="#editCommentModal">
+                <div class="mt-4 d-flex gap-3">
+                    @if (auth()->id() === $comment->user_id || auth()->user()->hasRole('Admin'))
+                        <button type="button" class="btn btn-primary mt-4" data-bs-toggle="modal" data-bs-target="#editCommentModal">
                         Editar
                     </button>
+                    @endif
+                </div>
 
-                @endcan
-
-                @can('comment.destroy')
+                @if (auth()->id() === $comment->user_id || auth()->user()->hasRole('Admin'))
                     <form action="{{ route('comment.destroy', $comment) }}" method="POST"
                         onsubmit="return confirm('¿Estás seguro de que deseas eliminar este comentario?')">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger">Eliminar</button>
                     </form>
-                @endcan
+                @endif
             </div>
             
 

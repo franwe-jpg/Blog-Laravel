@@ -8,7 +8,17 @@ use App\Http\Controllers\UserController; //importamos el controlador UserControl
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProfileController;
 
+
 use App\Models\Post; //importamos el modelo Post para utilizarlo en la ruta de prueba
+
+
+Route::get('/', [HomeController::class, '__invoke']); // Sin pasar parametros ya que el controlador solo tiene un metodo __invoke
+Route::get('/login', [Logincontroller::class, 'login'])->name('login');
+Route::post('/loginStore', [LoginController::class, 'loginStore'])->name('loginStore');
+Route::get('/register', [LoginController::class, 'register'])->name('register');
+Route::post('/registerStore', [LoginController::class, 'registerStore'])->name('registerStore');
+Route::post('/logout', [LoginController::class,'logout'])->name('logout.local');   
+
 
 
 Route::middleware('auth')->group(function(){
@@ -28,14 +38,6 @@ Route::middleware('auth')->group(function(){
 
    
 });
-
-Route::get('/', [HomeController::class, '__invoke']); // Sin pasar parametros ya que el controlador solo tiene un metodo __invoke
-Route::get('/login', [Logincontroller::class, 'login'])->name('login');
-Route::post('/loginStore', [LoginController::class, 'loginStore'])->name('loginStore');
-Route::get('/register', [LoginController::class, 'register'])->name('register');
-Route::post('/registerStore', [LoginController::class, 'registerStore'])->name('registerStore');
-Route::post('/logout', [LoginController::class,'logout'])->name('logout');   
-
 
 
 Route::get('/prueba', function () {

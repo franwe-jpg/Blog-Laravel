@@ -80,7 +80,13 @@ class UserController extends Controller
         $user->syncRoles($request->roles ?? []); // Método específico de Laravel Permission    
 
         // Primero actualizas el usuario
-        $user->update($request->only(['name','email', 'password']));
+        $user->update($request->only(['name','email','bio', 'instagram', 'avatar']));
+
+        if ($request->filled('password')) {
+            $user->password = Hash::make($request->password);
+        }
+
+        $user->save();
 
         // Luego actualizas o creas el teléfono
         $user->phone()->updateOrCreate(

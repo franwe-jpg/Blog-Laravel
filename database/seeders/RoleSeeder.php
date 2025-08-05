@@ -17,13 +17,7 @@ class RoleSeeder extends Seeder
         Role::create(['name' => 'Admin']);
         Role::create(['name' => 'Blogger']);
         
-        Role::create(['name' => 'PostPropio']);
 
-        //Permission::create(['name' => 'dashboard'])->syncRoles(['Admin', 'Blogger']);
-        
-        //Permission::create(['name' => 'post.show'])->syncRoles(['Admin', 'Blogger']);
-        //Permission::create(['name' => 'post.index'])->syncRoles(['Admin', 'Blogger']);
-        
         Permission::create(['name' => 'post.create'])->syncRoles(['Admin', 'Blogger']);
         Permission::create(['name' => 'post.store'])->syncRoles(['Admin', 'Blogger']);
         Permission::create(['name' => 'post.edit'])->syncRoles(['Admin', 'Blogger']);
